@@ -1,0 +1,6 @@
+---
+- name: Configure Jenkins EC2
+  hosts: tag_Name_jenkins-server
+  become: yes
+  roles:
+    - jenkins

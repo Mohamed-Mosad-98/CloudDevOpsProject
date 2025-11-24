@@ -1,0 +1,56 @@
+---
+# ======================
+# Install base packages
+# ======================
+- name: Install required packages
+  apt:
+    name:
+      - git
+      - curl
+      - docker.io
+      - openjdk-11-jdk
+    state: present
+    update_cache: yes
+
+# ======================
+# Enable Docker
+# ======================
+- name: Enable and start Docker service
+  systemd:
+    name: docker
+    enabled: yes
+    state: started
+
+# ======================
+# Add Jenkins GPG key
+# ======================
+- name: Add Jenkins repo key
+  apt_key:
+    url: https://pkg.jenkins.io/debian-stable/jenkins.io.key
+    state: present
+
+# ======================
+# Add Jenkins repo
+# ======================
+- name: Add Jenkins repository
+  apt_repository:
+    repo: "deb https://pkg.jenkins.io/debian-stable binary/"
+    state: present
+
+# ======================
+# Install Jenkins
+# ======================
+- name: Install Jenkins
+  apt:
+    name: jenkins
+    state: present
+    update_cache: yes
+
+# ======================
+# Start Jenkins
+# ======================
+- name: Start and enable Jenkins service
+  systemd:
+    name: jenkins
+    enabled: yes
+    state: started
