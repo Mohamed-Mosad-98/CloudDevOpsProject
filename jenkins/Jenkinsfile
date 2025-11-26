@@ -2,75 +2,58 @@ pipeline {
     agent any
 
     environment {
-        DOCKERHUB_USER = "mosaad71298"
-        IMAGE_NAME     = "nti-devops-app"
+        IMAGE_NAME = "mosad/app"     // غيّرها لو ليك Repo مختلف
+        TAG = "${env.BUILD_NUMBER}"
     }
 
     stages {
 
-        stage('Checkout') {
-            steps {
-                checkout scm
-            }
-        }
-
         stage('Build Image') {
             steps {
-                sh """
-                    docker build -t ${DOCKERHUB_USER}/${IMAGE_NAME}:${BUILD_NUMBER} .
-                """
-            }
-        }
-
-        stage('Scan Image (Trivy)') {
-            when {
-                expression { return false }   // Disable (BONUS: enable later)
-            }
-            steps {
-                sh """
-                    trivy image ${DOCKERHUB_USER}/${IMAGE_NAME}:${BUILD_NUMBER}
-                """
-            }
-        }
-
-        stage('Push Image') {
-            steps {
-                withCredentials([usernamePassword(
-                    credentialsId: 'dockerhub-creds',
-                    usernameVariable: 'USER',
-                    passwordVariable: 'PASS'
-                )]) {
-                    sh """
-                        echo "$PASS" | docker login -u "$USER" --password-stdin
-                        docker push ${DOCKERHUB_USER}/${IMAGE_NAME}:${BUILD_NUMBER}
-                    """
+                script {
+                    buildImage(IMAGE_NAME, TAG)
                 }
             }
         }
 
-        stage('Delete Image Locally') {
+        stage('Scan Image') {
             steps {
-                sh """
-                    docker rmi ${DOCKERHUB_USER}/${IMAGE_NAME}:${BUILD_NUMBER}
-                """
+                script {
+                    scanImage(IMAGE_NAME, TAG)
+                }
+            }
+        }
+
+        stage('Push Image to DockerHub') {
+            steps {
+                script {
+                    pushImage(IMAGE_NAME, TAG)
+                }
+            }
+        }
+
+        stage('Delete Local Image') {
+            steps {
+                script {
+                    deleteLocalImage(IMAGE_NAME, TAG)
+                }
             }
         }
 
         stage('Update Manifests') {
             steps {
                 script {
-                    updateManifest("${BUILD_NUMBER}")
+                    updateManifest(TAG)    // اسم الفانكشن بناءً على اسم الفايل عندك
                 }
             }
         }
 
         stage('Push Manifests') {
             steps {
-                sh """
-                    git push origin main
-                """
+                script {
+                    pushManifests()
+                }
             }
         }
     }
 }
-
