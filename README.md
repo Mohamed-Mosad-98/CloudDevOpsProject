@@ -170,25 +170,9 @@ CloudDevOpsProject/
 
 ## 📷 Screenshots
 
-### 🔹 Jenkins Pipeline Success
-
-(Add screenshot here)
-
-### 🔹 Terraform Apply Output
-
-(Add screenshot here)
-
-### 🔹 Running Kubernetes Pods
-
-(Add screenshot here)
-
 ### 🔹 ArgoCD Dashboard
 
-(Add screenshot here)
-
-### 🔹 AWS EC2 Jenkins Server
-
-(Add screenshot here)
+<img width="1920" height="1080" alt="Screenshot 2025-11-25 022030" src="https://github.com/user-attachments/assets/34798c8a-ac28-4d2a-8a5b-0e3a6f003ca4" />
 
 ---
 
