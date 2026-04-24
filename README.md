@@ -68,8 +68,8 @@ Kubernetes Cluster on AWS
 ---
 
 ## 📁 Project Structure
+
 ```
-ظ
 CloudDevOpsProject/  
 ├── Dockerfile  
 ├── Jenkinsfile  
@@ -97,9 +97,7 @@ CloudDevOpsProject/
 │   └── application.yml  
 │  
 └── screenshots/
-
 ```
-
 ---
 
 ## ☁️ AWS Infrastructure Provisioned
