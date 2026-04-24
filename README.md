@@ -68,6 +68,8 @@ Kubernetes Cluster on AWS
 ---
 
 ## 📁 Project Structure
+
+```
 ظ
 CloudDevOpsProject/  
 ├── Dockerfile  
@@ -96,6 +98,8 @@ CloudDevOpsProject/
 │   └── application.yml  
 │  
 └── screenshots/
+
+```
 
 ---
 
