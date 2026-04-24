@@ -68,7 +68,6 @@ Kubernetes Cluster on AWS
 ---
 
 ## 📁 Project Structure
-
 ```
 ظ
 CloudDevOpsProject/  
